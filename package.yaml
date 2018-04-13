@@ -1,0 +1,46 @@
+name:                pomodoro-cli
+version:             0.1.0.0
+github:              "qoelet/pomodoro-cli"
+license:             BSD3
+author:              "Kenny Shen"
+maintainer:          "kenny@machinesung.com"
+copyright:           "2018 Kenny Shen"
+
+extra-source-files:
+- README.md
+
+synopsis:            A simple CLI Pomodoro
+category:            Console
+description:         Please see the README on Github at <https://github.com/qoelet/pomodoro-cli#readme>
+
+dependencies:
+  - base >= 4.7 && < 5
+  - getopt-generics
+  - process
+  - unix
+
+library:
+  source-dirs: src
+
+executables:
+  pomodoro-cli:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - pomodoro-cli
+
+tests:
+  pomodoro-cli-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - pomodoro-cli
+      - hspec
