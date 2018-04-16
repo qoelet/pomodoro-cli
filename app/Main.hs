@@ -29,9 +29,10 @@ iterateM f a = f a >>= iterateM f
 printAndSleep :: Pomodoro -> Maybe FilePath -> IO ()
 printAndSleep Pomodoro{..} alarm
   | state == Work = go state (coerce workDuration)
-  | otherwise = do
-      go state (coerce restDuration)
-      when (isJust alarm) (callCommand ("mpg123 -q " ++ fromJust alarm))
+  | otherwise = go state (coerce restDuration)
   where
     go state duration
-      = print state >> sleep duration >> return ()
+      = print state
+      >> sleep duration
+      >> when (isJust alarm) (callCommand ("mpg123 -q " ++ fromJust alarm))
+      >> return ()
